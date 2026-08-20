@@ -6,7 +6,7 @@ Página de perfil pessoal estilo **Link in Bio** com visual cyberpunk, efeito Ma
 
 ## ✨ Demonstração
 
-🔗 **[Ver página ao vivo](https://bruno15987.github.io/Developer-Profile-Card/)**
+🔗 **[Ver página ao vivo](https://bruno15987.github.io/bruninh/)**
 
 ---
 
