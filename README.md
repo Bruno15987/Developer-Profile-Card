@@ -1,19 +1,19 @@
-# 🌐 Bruninh Profile
+# 🌐 Developer Profile Card
 
-Uma página de perfil moderna (Link in Bio) com visual cyberpunk, efeito Matrix, música, contador de visualizações e várias interações.
+Página de perfil pessoal estilo **Link in Bio** com visual cyberpunk, efeito Matrix, animações, música de fundo, contador de visualizações, tema claro/escuro e integração com redes sociais.
 
 ---
 
 ## ✨ Demonstração
 
-🔗 **[Ver página ao vivo](https://bruno15987.github.io/bruninh/)**
+🔗 **[Ver página ao vivo](https://bruno15987.github.io/Developer-Profile-Card/)**
 
 ---
 
 ## 🚀 Funcionalidades
 
 - Efeito Matrix + estrelas no fundo
-- Card com glassmorphism e grain
+- Card com glassmorphism
 - Foto de perfil com status online
 - Efeito de digitação no nome e na frase
 - Saudação automática (Bom dia / Boa tarde / Boa noite)
@@ -24,97 +24,161 @@ Uma página de perfil moderna (Link in Bio) com visual cyberpunk, efeito Matrix,
 - Cursor personalizado
 - Tooltip nos ícones sociais
 - Glitch no nome ao passar o mouse
-- Easter egg secreto
 - Totalmente responsivo
+- **Configuração super fácil** pelo arquivo `config.js`
 
 ---
 
 ## 📁 Como usar este projeto
 
-### 1. Faça um Fork ou baixe o código
+### 1. Baixe ou faça um Fork
 
-Clique em **Fork** neste repositório  
-**ou** baixe o ZIP e extraia na sua pasta.
+- Clique em **Fork** neste repositório  
+**ou**
+- Baixe o ZIP e extraia na sua pasta
 
-### 2. Personalize as informações
+### 2. Personalize tudo no arquivo `config.js`
 
-Abra o arquivo `index.html` e altere:
+Abra o arquivo `config.js` e altere as informações:
 
-| O que mudar               | Onde encontrar                          |
-|---------------------------|-----------------------------------------|
-| Seu nome                  | No JavaScript (efeito de digitação)     |
-| Sua foto                  | `src="favicon.jpeg"`                    |
-| Sua frase                 | No efeito de digitação (JavaScript)     |
-| Links das redes sociais   | Dentro de `.social-icons`               |
-| Nome do arquivo da música | `src="sua-musica.mp3"`                  |
+```js
+const CONFIG = {
+    // ===== INFORMAÇÕES PRINCIPAIS =====
+    nome: "Seu Nome",
+    frase: '"Sua frase motivacional aqui."',
+    badge: "💻 Programador",
+    dataAtualizacao: "Atualizado em 20/08/2026",
 
-### 3. Coloque sua música
+    // ===== FOTOS E ARQUIVOS =====
+    fotoPerfil: "favicon.jpeg",
+    favicon: "favicon.jpeg",
+    musica: "sua-musica.mp3",
 
-Coloque o arquivo da música na mesma pasta do `index.html`  
-e renomeie para `sua-musica.mp3`  
-(ou altere o nome no código).
+    // ===== REDES SOCIAIS =====
+    redes: [
+        {
+            nome: "GitHub",
+            link: "https://github.com/seuusuario",
+            icone: "fa-brands fa-github"
+        },
+        {
+            nome: "YouTube",
+            link: "https://youtube.com/@seucanal",
+            icone: "fa-brands fa-youtube"
+        },
+        {
+            nome: "Instagram",
+            link: "https://instagram.com/seuuser",
+            icone: "fa-brands fa-instagram"
+        }
+        // Descomente e preencha as redes que quiser usar
+    ],
 
-### 4. Coloque sua foto
+    // ===== CONTADOR INTERNO =====
+    contadorChave: "seu-nome-perfil-v1",      // Mude para um nome único
+    contadorStorage: "seu_nome_visited_v1"    // Mude para um nome único
+};
+```
 
-Substitua o arquivo `favicon.jpeg` pela sua foto de perfil  
-(recomendado: formato quadrado).
+### 3. Coloque sua foto e música
 
-### 5. Publique no GitHub Pages
+| Arquivo            | O que fazer                                      |
+|--------------------|--------------------------------------------------|
+| `favicon.jpeg`     | Substitua pela sua foto de perfil (preferencialmente quadrada) |
+| `sua-musica.mp3`   | Coloque sua música de fundo com esse nome        |
 
-1. Crie um repositório no GitHub
+### 4. Adicionar mais redes sociais
+
+Basta descomentar (remover o `//`) e preencher no array `redes`:
+
+```js
+{
+    nome: "Twitter / X",
+    link: "https://x.com/seuuser",
+    icone: "fa-brands fa-x-twitter"
+},
+{
+    nome: "Discord",
+    link: "https://discord.gg/seulink",
+    icone: "fa-brands fa-discord"
+},
+{
+    nome: "LinkedIn",
+    link: "https://linkedin.com/in/seuuser",
+    icone: "fa-brands fa-linkedin"
+},
+{
+    nome: "TikTok",
+    link: "https://tiktok.com/@seuuser",
+    icone: "fa-brands fa-tiktok"
+},
+{
+    nome: "WhatsApp",
+    link: "https://wa.me/5511999999999",
+    icone: "fa-brands fa-whatsapp"
+},
+{
+    nome: "Email",
+    link: "mailto:seuemail@email.com",
+    icone: "fa-solid fa-envelope"
+}
+```
+
+---
+
+## 🛠️ Publicar no GitHub Pages
+
+1. Crie um repositório no GitHub (ou use este)
 2. Envie os arquivos
 3. Vá em **Settings → Pages**
 4. Em **Source** escolha a branch `main`
 5. Clique em **Save**
 
-Pronto! Sua página estará no ar.
+Pronto! Sua página estará no ar em alguns minutos.
 
 ---
 
-## 🛠️ Comandos Git (primeira vez)
+## 📦 Estrutura de arquivos
+
+```
+📦 Developer-Profile-Card
+ ┣ 📜 index.html          ← Página principal
+ ┣ 📜 config.js           ← 🔥 Configuração fácil (edite aqui)
+ ┣ 📜 favicon.jpeg        ← Sua foto de perfil
+ ┣ 📜 sua-musica.mp3      ← Sua música de fundo
+ ┗ 📜 README.md           ← Este arquivo
+```
+
+---
+
+## 🧠 Comandos Git (primeira vez)
+
+```bash
 git init
 git add .
 git commit -m "Primeira versão do meu perfil"
 git branch -M main
 git remote add origin https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
 git push -u origin main
-text> Substitua `SEU-USUARIO` e `SEU-REPOSITORIO` pelos seus dados reais.
+```
+
+### Atualizar depois de mudanças:
+
+```bash
+git add .
+git commit -m "Atualização da configuração"
+git push
+```
 
 ---
 
-## 🎨 Como personalizar mais
+## 💡 Dicas importantes
 
-### Mudar a chave do contador
-
-Procure por estas linhas no JavaScript:
-const counterKey = 'bruno15987-bruninh-v3';
-const storageKey = 'bruninh_visited_v3';
-textTroque por um nome único (ex: `seu-nome-perfil-v1`).
-
-### Mudar as cores
-
-As cores principais estão no início do CSS (`:root`).
-
-### Remover alguma função
-
-Basta apagar a parte correspondente no HTML ou JavaScript.
-
----
-
-## 📌 Estrutura de arquivos
-📦 seu-repositorio
-┣ 📜 index.html
-┣ 📜 favicon.jpeg      ← sua foto
-┣ 📜 sua-musica.mp3    ← sua música
-┗ 📜 README.md
-text---
-
-## 💡 Dicas
-
-- Use uma música leve (mp3) para não deixar a página pesada
+- Sempre mude as chaves `contadorChave` e `contadorStorage` para valores únicos (senão o contador fica compartilhado)
+- Use músicas leves (mp3) para a página não ficar pesada
 - Teste no celular também
-- O contador só aumenta 1 vez por dispositivo (graças ao localStorage)
-- O volume funciona tanto no computador quanto no celular
+- O contador só aumenta **1 vez por dispositivo** (usa localStorage)
+- O volume da música funciona tanto no PC quanto no celular
 
 ---
 
