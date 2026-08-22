@@ -1,6 +1,6 @@
 # 🌐 Developer Profile Card
 
-Página de perfil pessoal estilo **Link in Bio** com visual cyberpunk, efeito Matrix, animações, música de fundo, contador de visualizações, tema claro/escuro e integração com redes sociais.
+Página de perfil pessoal estilo **Link in Bio**, com visual cyberpunk, efeito Matrix, animações, música do YouTube, contador de visualizações, tema claro/escuro e muita personalização.
 
 ---
 
@@ -12,49 +12,86 @@ Página de perfil pessoal estilo **Link in Bio** com visual cyberpunk, efeito Ma
 
 ## 🚀 Funcionalidades
 
-- Efeito Matrix + estrelas no fundo
-- Card com glassmorphism
-- Foto de perfil com status online
-- Efeito de digitação no nome e na frase
-- Saudação automática (Bom dia / Boa tarde / Boa noite)
-- Horário em tempo real
-- Contador de visualizações **único por dispositivo**
-- Música de fundo com controle de volume (funciona no celular)
-- Tema claro / escuro
-- Cursor personalizado
-- Tooltip nos ícones sociais
-- Glitch no nome ao passar o mouse
-- Totalmente responsivo
-- **Configuração super fácil** pelo arquivo `config.js`
+* 🟢 Efeito Matrix + estrelas no fundo, podendo ser desligado
+* 💎 Card com glassmorphism
+* 👤 Foto de perfil com status online
+* ⌨️ Efeito de digitação no nome e na frase
+* 🔄 Frases que trocam automaticamente
+* 🌅 Saudação automática: Bom dia / Boa tarde / Boa noite
+* 🕐 Horário em tempo real
+* 👁️ Contador de visualizações único por dispositivo
+* 🎵 Música de fundo via link do YouTube
+* 🔓 Overlay "Clique para entrar" para desbloquear a música
+* 🌗 Tema claro / escuro com memória
+* 🖱️ Cursor personalizado: normal, trilha ou imagem
+* ✨ Partículas no avatar
+* 💓 Pulsação do avatar e das letras quando a música toca
+* 🎨 Cor de destaque personalizável
+* 🖼️ Fundo com imagem opcional
+* 🕘 Exibição da última visita
+* 📤 Botão de compartilhar
+* 📱 Totalmente responsivo
+* ⚙️ Configuração fácil pelo arquivo `config.js`
+
+---
+
+## 📸 Preview
+
+O projeto foi desenvolvido para funcionar como uma página pessoal moderna, combinando estética **cyberpunk**, **glassmorphism**, efeitos neon e elementos interativos.
 
 ---
 
 ## 📁 Como usar este projeto
 
-### 1. Baixe ou faça um Fork
+### 1. Faça um Fork ou clone o projeto
 
-- Clique em **Fork** neste repositório  
-**ou**
-- Baixe o ZIP e extraia na sua pasta
+Você pode:
 
-### 2. Personalize tudo no arquivo `config.js`
+* Clicar em **Fork** neste repositório; ou
+* Baixar o projeto em `.zip` e extrair na sua pasta.
 
-Abra o arquivo `config.js` e altere as informações:
+Depois, abra a pasta do projeto.
+
+---
+
+### 2. Personalize o `config.js`
+
+Todas as principais configurações do perfil ficam centralizadas no arquivo `config.js`.
+
+Exemplo:
 
 ```js
 const CONFIG = {
-    // ===== INFORMAÇÕES PRINCIPAIS =====
+    // Informações principais
     nome: "Seu Nome",
     frase: '"Sua frase motivacional aqui."',
     badge: "💻 Programador",
-    dataAtualizacao: "Atualizado em 20/08/2026",
+    dataAtualizacao: "Atualizado em 22/08/2026",
 
-    // ===== FOTOS E ARQUIVOS =====
+    // Frases extras
+    // Elas podem trocar automaticamente no perfil
+    frases: [
+        '"Frase 1"',
+        '"Frase 2"',
+        '"Frase 3"'
+    ],
+
+    // Visual
+    corDestaque: "#79C83D",
     fotoPerfil: "favicon.jpeg",
     favicon: "favicon.jpeg",
-    musica: "sua-musica.mp3",
+    fundoImagem: "",
+    efeitosFundo: true,
 
-    // ===== REDES SOCIAIS =====
+    // Cursor
+    // Opções: "normal" | "trilha" | "imagem"
+    tipoCursor: "normal",
+    cursorImagem: "cursor.png",
+
+    // Música do YouTube
+    musica: "https://www.youtube.com/watch?v=SEU_VIDEO_ID",
+
+    // Redes sociais
     redes: [
         {
             nome: "GitHub",
@@ -71,87 +108,54 @@ const CONFIG = {
             link: "https://instagram.com/seuuser",
             icone: "fa-brands fa-instagram"
         }
-        // Descomente e preencha as redes que quiser usar
     ],
 
-    // ===== CONTADOR INTERNO =====
-    contadorChave: "seu-nome-perfil-v1",      // Mude para um nome único
-    contadorStorage: "seu_nome_visited_v1"    // Mude para um nome único
+    // Contador de visualizações
+    contadorChave: "seu-nome-perfil-v1",
+    contadorStorage: "seu_nome_visited_v1"
 };
 ```
 
-### 3. Coloque sua foto e música
+### 🔧 Principais configurações
 
-| Arquivo            | O que fazer                                      |
-|--------------------|--------------------------------------------------|
-| `favicon.jpeg`     | Substitua pela sua foto de perfil (preferencialmente quadrada) |
-| `sua-musica.mp3`   | Coloque sua música de fundo com esse nome        |
+| Configuração      | Função                                    |
+| ----------------- | ----------------------------------------- |
+| `nome`            | Nome exibido no perfil                    |
+| `frase`           | Frase principal                           |
+| `badge`           | Badge abaixo do nome                      |
+| `frases`          | Frases que podem alternar automaticamente |
+| `corDestaque`     | Cor principal dos efeitos                 |
+| `fotoPerfil`      | Foto do perfil                            |
+| `favicon`         | Ícone da página                           |
+| `fundoImagem`     | Imagem de fundo                           |
+| `efeitosFundo`    | Ativa/desativa Matrix e estrelas          |
+| `tipoCursor`      | Define o tipo de cursor                   |
+| `cursorImagem`    | Imagem usada pelo cursor                  |
+| `musica`          | Link do vídeo do YouTube                  |
+| `redes`           | Redes sociais exibidas                    |
+| `contadorChave`   | Identificação do contador                 |
+| `contadorStorage` | Identificação do armazenamento local      |
 
-### 4. Adicionar mais redes sociais
+---
 
-Basta descomentar (remover o `//`) e preencher no array `redes`:
+## 📂 Arquivos importantes
 
-```js
-{
-    nome: "Twitter / X",
-    link: "https://x.com/seuuser",
-    icone: "fa-brands fa-x-twitter"
-},
-{
-    nome: "Discord",
-    link: "https://discord.gg/seulink",
-    icone: "fa-brands fa-discord"
-},
-{
-    nome: "LinkedIn",
-    link: "https://linkedin.com/in/seuuser",
-    icone: "fa-brands fa-linkedin"
-},
-{
-    nome: "TikTok",
-    link: "https://tiktok.com/@seuuser",
-    icone: "fa-brands fa-tiktok"
-},
-{
-    nome: "WhatsApp",
-    link: "https://wa.me/5511999999999",
-    icone: "fa-brands fa-whatsapp"
-},
-{
-    nome: "Email",
-    link: "mailto:seuemail@email.com",
-    icone: "fa-solid fa-envelope"
-}
-```
+| Arquivo         | Função                  |
+| --------------- | ----------------------- |
+| `index.html`    | Página principal        |
+| `config.js`     | Configurações do perfil |
+| `favicon.jpeg`  | Foto do perfil          |
+| `manifest.json` | Configuração do PWA     |
+| `sw.js`         | Service Worker e cache  |
+| `README.md`     | Documentação do projeto |
 
 ---
 
 ## 🛠️ Publicar no GitHub Pages
 
-1. Crie um repositório no GitHub (ou use este)
-2. Envie os arquivos
-3. Vá em **Settings → Pages**
-4. Em **Source** escolha a branch `main`
-5. Clique em **Save**
+### Primeira publicação
 
-Pronto! Sua página estará no ar em alguns minutos.
-
----
-
-## 📦 Estrutura de arquivos
-
-```
-📦 Developer-Profile-Card
- ┣ 📜 index.html          ← Página principal
- ┣ 📜 config.js           ← 🔥 Configuração fácil (edite aqui)
- ┣ 📜 favicon.jpeg        ← Sua foto de perfil
- ┣ 📜 sua-musica.mp3      ← Sua música de fundo
- ┗ 📜 README.md           ← Este arquivo
-```
-
----
-
-## 🧠 Comandos Git (primeira vez)
+Abra o terminal dentro da pasta do projeto:
 
 ```bash
 git init
@@ -162,35 +166,183 @@ git remote add origin https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
 git push -u origin main
 ```
 
-### Atualizar depois de mudanças:
+Depois, no GitHub:
+
+**Settings → Pages → Build and deployment → Source → Deploy from a branch**
+
+Selecione:
+
+```text
+Branch: main
+Folder: / (root)
+```
+
+Clique em **Save**.
+
+Após alguns instantes, o GitHub Pages disponibilizará o site.
+
+---
+
+## 🔄 Atualizar o projeto
+
+Depois de fazer alterações:
 
 ```bash
 git add .
-git commit -m "Atualização da configuração"
+git commit -m "Atualização do perfil"
 git push
+```
+
+No **CachyOS / Linux**, esses mesmos comandos funcionam normalmente.
+
+---
+
+## 📦 Estrutura do projeto
+
+```text
+📦 Developer-Profile-Card
+ ┣ 📜 index.html
+ ┣ 📜 config.js
+ ┣ 🖼️ favicon.jpeg
+ ┣ 📜 manifest.json
+ ┣ 📜 sw.js
+ ┗ 📜 README.md
 ```
 
 ---
 
-## 💡 Dicas importantes
+## 🎨 Personalização
 
-- Sempre mude as chaves `contadorChave` e `contadorStorage` para valores únicos (senão o contador fica compartilhado)
-- Use músicas leves (mp3) para a página não ficar pesada
-- Teste no celular também
-- O contador só aumenta **1 vez por dispositivo** (usa localStorage)
-- O volume da música funciona tanto no PC quanto no celular
+### Alterar a cor
+
+No `config.js`:
+
+```js
+corDestaque: "#79C83D",
+```
+
+Você pode trocar por qualquer cor hexadecimal.
+
+Exemplo:
+
+```js
+corDestaque: "#00ffff",
+```
+
+---
+
+### Desativar os efeitos de fundo
+
+Para remover o Matrix e as estrelas:
+
+```js
+efeitosFundo: false,
+```
+
+Para ativar novamente:
+
+```js
+efeitosFundo: true,
+```
+
+---
+
+### Alterar o cursor
+
+Cursor normal:
+
+```js
+tipoCursor: "normal",
+```
+
+Cursor com trilha:
+
+```js
+tipoCursor: "trilha",
+```
+
+Cursor usando uma imagem:
+
+```js
+tipoCursor: "imagem",
+cursorImagem: "cursor.png",
+```
+
+---
+
+### Alterar a música
+
+Use um link de vídeo do YouTube:
+
+```js
+musica: "https://www.youtube.com/watch?v=SEU_VIDEO_ID",
+```
+
+A música é desbloqueada pelo overlay **"Clique para entrar"**, pois os navegadores normalmente bloqueiam reprodução automática de áudio.
+
+---
+
+## 👁️ Contador de visualizações
+
+O projeto possui um sistema para identificar visualizações únicas por dispositivo.
+
+Exemplo:
+
+```js
+contadorChave: "bruninh-profile-v1",
+contadorStorage: "bruninh_visited_v1",
+```
+
+### ⚠️ Importante
+
+Se você criar uma nova versão do contador, altere essas duas chaves para evitar conflitos com versões anteriores.
+
+Exemplo:
+
+```js
+contadorChave: "bruninh-profile-v2",
+contadorStorage: "bruninh_visited_v2",
+```
+
+---
+
+## 📱 Responsividade
+
+O projeto foi desenvolvido para funcionar em diferentes tamanhos de tela:
+
+* 💻 Computadores
+* 🖥️ Monitores
+* 📱 Celulares
+* 📲 Tablets
+
+É recomendado testar o perfil em pelo menos um computador e um celular antes de publicar alterações importantes.
+
+---
+
+## 💡 Dicas
+
+* Mantenha a `fotoPerfil` em formato quadrado para obter um resultado melhor.
+* Evite imagens de fundo muito pesadas.
+* Use uma imagem de cursor pequena.
+* Sempre teste os links das redes sociais.
+* Verifique se o link do YouTube está correto.
+* Faça `git add`, `git commit` e `git push` sempre que atualizar o projeto.
+* Se alterar o contador, atualize `contadorChave` e `contadorStorage`.
+* Teste o site em dispositivos móveis.
+* O arquivo `config.js` concentra grande parte da personalização do projeto.
 
 ---
 
 ## 🧠 Créditos
 
-Feito com ❤️ por **Bruninh**
+Feito com ❤️ por **Bruninh**.
 
-Inspirado em páginas de Link in Bio modernas com visual cyberpunk.
+Projeto inspirado em páginas modernas de **Link in Bio**, combinando elementos de cyberpunk, Matrix, glassmorphism e interfaces futuristas.
 
 ---
 
 ## 📄 Licença
 
-Este projeto é livre para uso pessoal e educacional.  
-Pode modificar e usar como quiser.
+Este projeto é livre para uso pessoal e educacional.
+
+Você pode modificar, personalizar e utilizar o projeto conforme suas necessidades.
