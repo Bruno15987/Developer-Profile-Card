@@ -1,6 +1,6 @@
 # 🌐 Developer Profile Card
 
-Página de perfil pessoal estilo **Link in Bio**, com visual cyberpunk, efeito Matrix, animações, música do YouTube, contador de visualizações, tema claro/escuro e muita personalização.
+Página de perfil pessoal estilo **Link in Bio**, com visual cyberpunk, efeito Matrix, animações, música por link, contador de visualizações e tema claro/escuro.
 
 ---
 
@@ -12,25 +12,22 @@ Página de perfil pessoal estilo **Link in Bio**, com visual cyberpunk, efeito M
 
 ## 🚀 Funcionalidades
 
-* 🟢 Efeito Matrix + estrelas no fundo, podendo ser desligado
+* 🟢 Efeito Matrix + estrelas no fundo
 * 💎 Card com glassmorphism
 * 👤 Foto de perfil com status online
 * ⌨️ Efeito de digitação no nome e na frase
-* 🔄 Frases que trocam automaticamente
 * 🌅 Saudação automática: Bom dia / Boa tarde / Boa noite
 * 🕐 Horário em tempo real
 * 👁️ Contador de visualizações único por dispositivo
-* 🎵 Música de fundo via link do YouTube
-* 🔓 Overlay "Clique para entrar" para desbloquear a música
-* 🌗 Tema claro / escuro com memória
-* 🖱️ Cursor personalizado: normal, trilha ou imagem
-* ✨ Partículas no avatar
-* 💓 Pulsação do avatar e das letras quando a música toca
-* 🎨 Cor de destaque personalizável
-* 🖼️ Fundo com imagem opcional
-* 🕘 Exibição da última visita
-* 📤 Botão de compartilhar
-* 📱 Totalmente responsivo
+* 🗓️ "Sua última visita foi há X dias"
+* 🎵 Música por link do YouTube, link direto de `.mp3` ou arquivo local
+* 🌗 Tema claro / escuro
+* 🖱️ Cursor personalizado (ponto que cresce sobre botões e links)
+* 💬 Tooltip nos ícones sociais
+* 📤 Botão de compartilhar: no celular abre o compartilhamento do sistema, no computador copia o link
+* 🖼️ Preview com imagem e título quando o link é colado no WhatsApp ou no Discord
+* 🥚 Easter egg: os badges aparecem quando você clica em um ícone social
+* 📱 Funciona no computador e no celular
 * ⚙️ Configuração fácil pelo arquivo `config.js`
 
 ---
@@ -58,7 +55,7 @@ Depois, abra a pasta do projeto.
 
 Todas as principais configurações do perfil ficam centralizadas no arquivo `config.js`.
 
-Exemplo:
+Exemplo com as chaves que existem de verdade:
 
 ```js
 const CONFIG = {
@@ -68,27 +65,11 @@ const CONFIG = {
     badge: "💻 Programador",
     dataAtualizacao: "Atualizado em 22/08/2026",
 
-    // Frases extras
-    // Elas podem trocar automaticamente no perfil
-    frases: [
-        '"Frase 1"',
-        '"Frase 2"',
-        '"Frase 3"'
-    ],
-
-    // Visual
-    corDestaque: "#79C83D",
+    // Fotos e arquivos
     fotoPerfil: "favicon.jpeg",
     favicon: "favicon.jpeg",
-    fundoImagem: "",
-    efeitosFundo: true,
 
-    // Cursor
-    // Opções: "normal" | "trilha" | "imagem"
-    tipoCursor: "normal",
-    cursorImagem: "cursor.png",
-
-    // Música do YouTube
+    // Música (veja a seção "Música" abaixo)
     musica: "https://www.youtube.com/watch?v=SEU_VIDEO_ID",
 
     // Redes sociais
@@ -112,42 +93,61 @@ const CONFIG = {
 
     // Contador de visualizações
     contadorChave: "seu-nome-perfil-v1",
-    contadorStorage: "seu_nome_visited_v1"
+    contadorStorage: "seu_nome_visited_v1",
+
+    // Última visita
+    ultimaVisitaStorage: "seu_nome_last_visit_v1"
 };
 ```
 
 ### 🔧 Principais configurações
 
-| Configuração      | Função                                    |
-| ----------------- | ----------------------------------------- |
-| `nome`            | Nome exibido no perfil                    |
-| `frase`           | Frase principal                           |
-| `badge`           | Badge abaixo do nome                      |
-| `frases`          | Frases que podem alternar automaticamente |
-| `corDestaque`     | Cor principal dos efeitos                 |
-| `fotoPerfil`      | Foto do perfil                            |
-| `favicon`         | Ícone da página                           |
-| `fundoImagem`     | Imagem de fundo                           |
-| `efeitosFundo`    | Ativa/desativa Matrix e estrelas          |
-| `tipoCursor`      | Define o tipo de cursor                   |
-| `cursorImagem`    | Imagem usada pelo cursor                  |
-| `musica`          | Link do vídeo do YouTube                  |
-| `redes`           | Redes sociais exibidas                    |
-| `contadorChave`   | Identificação do contador                 |
-| `contadorStorage` | Identificação do armazenamento local      |
+| Configuração      | Função                                         |
+| ----------------- | ---------------------------------------------- |
+| `nome`            | Nome exibido no perfil                         |
+| `frase`           | Frase escrita com efeito de digitação          |
+| `badge`           | Badge abaixo do nome                           |
+| `dataAtualizacao` | Texto mostrado embaixo do contador             |
+| `fotoPerfil`      | Foto do perfil                                 |
+| `favicon`         | Ícone da página                                |
+| `musica`          | Link do YouTube, link de `.mp3` ou arquivo local |
+| `redes`           | Redes sociais exibidas                         |
+| `contadorChave`   | Identificação do contador                      |
+| `contadorStorage` | Identificação do armazenamento local           |
+| `ultimaVisitaStorage` | Identificação da data da última visita      |
+
+---
+
+### 🎵 Música
+
+No `config.js`, em `musica`, você pode colar qualquer um destes:
+
+```js
+// Link do YouTube (watch, youtu.be ou shorts)
+musica: "https://www.youtube.com/watch?v=SEU_VIDEO_ID",
+
+// Link direto de um arquivo de áudio
+musica: "https://exemplo.com/minha-musica.mp3",
+
+// Arquivo local na mesma pasta
+musica: "sua-musica.mp3",
+```
+
+Assim ninguém precisa baixar música pra usar o projeto — o link resolve.
+
+Os navegadores bloqueiam áudio antes da primeira interação. Se a música não começar sozinha, **clique em qualquer lugar da página** que ela destrava.
 
 ---
 
 ## 📂 Arquivos importantes
 
-| Arquivo         | Função                  |
-| --------------- | ----------------------- |
-| `index.html`    | Página principal        |
-| `config.js`     | Configurações do perfil |
-| `favicon.jpeg`  | Foto do perfil          |
-| `manifest.json` | Configuração do PWA     |
-| `sw.js`         | Service Worker e cache  |
-| `README.md`     | Documentação do projeto |
+| Arquivo         | Função                                  |
+| --------------- | --------------------------------------- |
+| `index.html`    | Página principal                        |
+| `config.js`     | Configurações do perfil                 |
+| `favicon.jpeg`  | Foto do perfil                          |
+| `sua-musica.mp3`| Música local (opcional, se usar link)   |
+| `README.md`     | Documentação do projeto                 |
 
 ---
 
@@ -193,8 +193,6 @@ git commit -m "Atualização do perfil"
 git push
 ```
 
-No **CachyOS / Linux**, esses mesmos comandos funcionam normalmente.
-
 ---
 
 ## 📦 Estrutura do projeto
@@ -204,89 +202,14 @@ No **CachyOS / Linux**, esses mesmos comandos funcionam normalmente.
  ┣ 📜 index.html
  ┣ 📜 config.js
  ┣ 🖼️ favicon.jpeg
- ┣ 📜 manifest.json
- ┣ 📜 sw.js
  ┗ 📜 README.md
 ```
-
----
-
-## 🎨 Personalização
-
-### Alterar a cor
-
-No `config.js`:
-
-```js
-corDestaque: "#79C83D",
-```
-
-Você pode trocar por qualquer cor hexadecimal.
-
-Exemplo:
-
-```js
-corDestaque: "#00ffff",
-```
-
----
-
-### Desativar os efeitos de fundo
-
-Para remover o Matrix e as estrelas:
-
-```js
-efeitosFundo: false,
-```
-
-Para ativar novamente:
-
-```js
-efeitosFundo: true,
-```
-
----
-
-### Alterar o cursor
-
-Cursor normal:
-
-```js
-tipoCursor: "normal",
-```
-
-Cursor com trilha:
-
-```js
-tipoCursor: "trilha",
-```
-
-Cursor usando uma imagem:
-
-```js
-tipoCursor: "imagem",
-cursorImagem: "cursor.png",
-```
-
----
-
-### Alterar a música
-
-Use um link de vídeo do YouTube:
-
-```js
-musica: "https://www.youtube.com/watch?v=SEU_VIDEO_ID",
-```
-
-A música é desbloqueada pelo overlay **"Clique para entrar"**, pois os navegadores normalmente bloqueiam reprodução automática de áudio.
 
 ---
 
 ## 👁️ Contador de visualizações
 
 O projeto possui um sistema para identificar visualizações únicas por dispositivo.
-
-Exemplo:
 
 ```js
 contadorChave: "bruninh-profile-v1",
@@ -297,45 +220,29 @@ contadorStorage: "bruninh_visited_v1",
 
 Se você criar uma nova versão do contador, altere essas duas chaves para evitar conflitos com versões anteriores.
 
-Exemplo:
-
-```js
-contadorChave: "bruninh-profile-v2",
-contadorStorage: "bruninh_visited_v2",
-```
-
 ---
 
 ## 📱 Responsividade
 
-O projeto foi desenvolvido para funcionar em diferentes tamanhos de tela:
-
-* 💻 Computadores
-* 🖥️ Monitores
-* 📱 Celulares
-* 📲 Tablets
-
-É recomendado testar o perfil em pelo menos um computador e um celular antes de publicar alterações importantes.
+Teste o perfil no computador e no celular antes de publicar alterações importantes.
 
 ---
 
 ## 💡 Dicas
 
 * Mantenha a `fotoPerfil` em formato quadrado para obter um resultado melhor.
-* Evite imagens de fundo muito pesadas.
-* Use uma imagem de cursor pequena.
+* Prefira link do YouTube a arquivo de música — não pesa no repositório.
+* Se trocar o nome em `config.js`, atualize também o `og:title` no `index.html`: o WhatsApp não executa JavaScript.
 * Sempre teste os links das redes sociais.
-* Verifique se o link do YouTube está correto.
 * Faça `git add`, `git commit` e `git push` sempre que atualizar o projeto.
 * Se alterar o contador, atualize `contadorChave` e `contadorStorage`.
-* Teste o site em dispositivos móveis.
 * O arquivo `config.js` concentra grande parte da personalização do projeto.
 
 ---
 
 ## 🧠 Créditos
 
-Feito com ❤️ por **Bruninh**.
+Feito com ❤️ por **Bruninh**
 
 Projeto inspirado em páginas modernas de **Link in Bio**, combinando elementos de cyberpunk, Matrix, glassmorphism e interfaces futuristas.
 
