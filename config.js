@@ -12,6 +12,16 @@ const CONFIG = {
     // ===== FOTOS E ARQUIVOS =====
     fotoPerfil: "favicon.jpeg",
     favicon: "favicon.jpeg",
+
+    // ===== MÚSICA =====
+    // Aceita 3 formatos, é só colar o link:
+    //
+    // YouTube:      "https://www.youtube.com/watch?v=VIDEO_ID"
+    // Link direto:  "https://exemplo.com/minha-musica.mp3"
+    // Arquivo local: "sua-musica.mp3"
+    //
+    // Dica: pra achar o link de um vídeo do YouTube, use o campo "ID" do
+    // compartilhar (fica tipo youtube.com/watch?v=abcdefghijk -> o ID é abcdefghijk)
     musica: "sua-musica.mp3",
 
     // ===== REDES SOCIAIS =====
@@ -91,5 +101,8 @@ const CONFIG = {
 
     // ===== CONTADOR INTERNO =====
     contadorChave: "bruno15987-bruninh-v3",
-    contadorStorage: "bruninh_visited_v3"
+    contadorStorage: "bruninh_visited_v3",
+
+    // Guarda a data da última visita pra mostrar "volta em X dias"
+    ultimaVisitaStorage: "bruninh_last_visit_v1"
 };

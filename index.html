@@ -4,7 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
-    <link rel="icon" type="image/png" href="favicon.jpeg">
+    <link rel="icon" type="image/jpeg" href="favicon.jpeg">
+
+    <!-- Preview do link no WhatsApp / Discord / Twitter -->
+    <!-- ⚠️ Troque a URL abaixo pelo endereço real do seu site no GitHub Pages -->
+    <!-- Se mudar o nome no config.js, atualize também aqui: o WhatsApp não executa JavaScript -->
+    <meta name="description" content="Perfil do Bruninh — programador, redes sociais e um pouco de música.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bruno15987.github.io/bruninh/">
+    <meta property="og:title" content="Bruninh | Programador">
+    <meta property="og:description" content="Perfil do Bruninh — programador, redes sociais e um pouco de música.">
+    <meta property="og:image" content="https://bruno15987.github.io/bruninh/favicon.jpeg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bruninh | Programador">
+    <meta name="twitter:description" content="Perfil do Bruninh — programador, redes sociais e um pouco de música.">
+    <meta name="twitter:image" content="https://bruno15987.github.io/bruninh/favicon.jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -305,6 +319,26 @@
             flex-shrink: 0;
         }
         #count { color: var(--accent); font-weight: 600; }
+        .last-visit { font-size: 0.68rem; color: var(--muted); margin-bottom: 2px; }
+        .share-btn {
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: var(--icon-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .share-btn:hover {
+            background: var(--icon-hover);
+            color: var(--text);
+        }
         .updated { font-size: 0.68rem; color: var(--updated); }
         .music-btn, .theme-btn {
             width: 32px;
@@ -337,6 +371,16 @@
         .theme-btn {
             top: 12px;
             left: 12px;
+        }
+        /* Player do YouTube escondido (música por link) */
+        #yt-player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -375,11 +419,15 @@
             </svg>
             Visualizações: <span id="count">...</span>
         </div>
+        <div class="last-visit" id="lastVisit"></div>
         <div class="updated" id="updated"></div>
+        <button class="share-btn" id="shareBtn">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span id="shareLabel">Compartilhar</span>
+        </button>
     </div>
-    <audio id="bg-music" loop preload="auto">
-        <source id="musicSource" src="" type="audio/mpeg">
-    </audio>
+    <audio id="bg-music" loop preload="auto"></audio>
+    <div id="yt-player"></div>
     <script src="config.js"></script>
     <script>
         // ====================== APLICAR CONFIGURAÇÃO ======================
@@ -391,7 +439,6 @@
         document.getElementById('avatarImg').src = CONFIG.fotoPerfil;
         document.getElementById('badge').textContent = CONFIG.badge;
         document.getElementById('updated').textContent = CONFIG.dataAtualizacao;
-        document.getElementById('musicSource').src = CONFIG.musica;
         // Redes sociais
         const socialContainer = document.getElementById('socialIcons');
         const badgesWrapper = document.getElementById('badgesWrapper');
@@ -564,41 +611,80 @@
             el.addEventListener('click', playClick);
         });
         // ====================== MÚSICA ======================
+        // CONFIG.musica aceita:
+        //   link do YouTube  -> toca pelo player embutido (invisível)
+        //   link direto de mp3/ogg -> toca pelo <audio>
+        //   arquivo local (ex: "sua-musica.mp3") -> toca pelo <audio>
         const music = document.getElementById('bg-music');
         const musicBtn = document.getElementById('musicBtn');
+        let ytPlayer = null;
         let isPlaying = false;
+
+        const ytId = (CONFIG.musica.match(/(?:youtu\.be\/|[?&]v=|shorts\/|embed\/)([\w-]{11})/) || [])[1];
         music.volume = 0.6;
-        music.load();
-        function tryAutoplay() {
-            music.play().then(() => {
-                isPlaying = true;
-                musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                musicBtn.classList.add('playing');
-            }).catch(() => {});
+
+        function setMusicIcon(playing) {
+            isPlaying = playing;
+            musicBtn.innerHTML = playing
+                ? '<i class="fa-solid fa-pause"></i>'
+                : '<i class="fa-solid fa-play"></i>';
+            musicBtn.classList.toggle('playing', playing);
         }
-        window.addEventListener('load', () => {
-            setTimeout(tryAutoplay, 800);
-        });
+
+        function tryAutoplay() {
+            if (ytId) {
+                if (ytPlayer) ytPlayer.playVideo();
+            } else {
+                music.play().then(() => setMusicIcon(true)).catch(() => {});
+            }
+        }
+
+        if (ytId) {
+            window.onYouTubeIframeAPIReady = () => {
+                ytPlayer = new YT.Player('yt-player', {
+                    videoId: ytId,
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        rel: 0,
+                        loop: 1,
+                        playlist: ytId
+                    },
+                    events: {
+                        onReady: (e) => {
+                            e.target.setVolume(60);
+                            tryAutoplay();
+                        },
+                        onStateChange: (e) => setMusicIcon(e.data === YT.PlayerState.PLAYING)
+                    }
+                });
+            };
+            const api = document.createElement('script');
+            api.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(api);
+        } else {
+            music.src = CONFIG.musica;
+            music.load();
+            window.addEventListener('load', () => setTimeout(tryAutoplay, 800));
+        }
+
         document.body.addEventListener('click', function firstClick() {
             if (!isPlaying) tryAutoplay();
             document.body.removeEventListener('click', firstClick);
         }, { once: true });
+
         musicBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             playClick();
             if (isPlaying) {
-                music.pause();
-                musicBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
-                musicBtn.classList.remove('playing');
+                if (ytId) ytPlayer.pauseVideo();
+                else { music.pause(); setMusicIcon(false); }
             } else {
-                music.play().then(() => {
-                    musicBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                    musicBtn.classList.add('playing');
-                }).catch(() => {
-                    alert('Não foi possível tocar a música.\nVerifique se o arquivo existe.');
+                if (ytId) { ytPlayer.playVideo(); setMusicIcon(true); }
+                else music.play().then(() => setMusicIcon(true)).catch(() => {
+                    alert('Não foi possível tocar a música.\nConfira o link em CONFIG.musica.');
                 });
             }
-            isPlaying = !isPlaying;
         });
         // ====================== TEMA ======================
         const themeBtn = document.getElementById('themeBtn');
@@ -609,6 +695,37 @@
             themeBtn.innerHTML = isLight
                 ? '<i class="fa-solid fa-sun"></i>'
                 : '<i class="fa-solid fa-moon"></i>';
+        });
+        // ====================== ÚLTIMA VISITA ======================
+        const visitEl = document.getElementById('lastVisit');
+        const lastVisit = localStorage.getItem(CONFIG.ultimaVisitaStorage);
+        if (lastVisit) {
+            const dias = Math.floor((Date.now() - Number(lastVisit)) / 86400000);
+            if (dias === 0) visitEl.textContent = 'Você já tinha passado por aqui hoje';
+            else if (dias === 1) visitEl.textContent = 'Sua última visita foi ontem';
+            else visitEl.textContent = `Sua última visita foi há ${dias} dias`;
+        } else {
+            visitEl.textContent = 'Primeira visita por aqui';
+        }
+        localStorage.setItem(CONFIG.ultimaVisitaStorage, Date.now().toString());
+        // ====================== COMPARTILHAR ======================
+        const shareBtn = document.getElementById('shareBtn');
+        const shareLabel = document.getElementById('shareLabel');
+        shareBtn.addEventListener('click', async () => {
+            playClick();
+            if (navigator.share) {
+                try {
+                    await navigator.share({ title: document.title, url: location.href });
+                } catch (err) {}
+            } else {
+                try {
+                    await navigator.clipboard.writeText(location.href);
+                    shareLabel.textContent = 'Link copiado!';
+                } catch (err) {
+                    shareLabel.textContent = 'Não deu pra copiar';
+                }
+                setTimeout(() => shareLabel.textContent = 'Compartilhar', 2000);
+            }
         });
     </script>
 </body>
